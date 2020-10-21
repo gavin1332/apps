@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>{{ title }}</title>
+</head>
+
+<body>
+<h2>{{ title }}</h2>
+
+{% for st in sub_title %}
+
+{% set layout_i = layout[loop.index0] %}
+{% set head_i = head[loop.index0] %}
+{% set items_i = items[loop.index0] %}
+
+<h4>{{ st }}</h4>
+
+{% if layout_i %}
+<table border=1>
+    <thead>
+    {% for h in head_i %}
+        <th>{{ h }}</th>
+    {% endfor %}
+    </thead>
+    
+    <tbody>
+    {% for item in items_i %}
+        <tr>
+        {% for i in item %}
+            <td>{{ i }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<table border=1>
+    {% for h in head_i %}
+    <tr>
+        <th>{{ h }}</th>
+        {% set outer_loop = loop %}
+        {% for item in items_i %}
+        <td>{{ item[outer_loop.index0] }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endfor %}
+
+</body>
+</html>
